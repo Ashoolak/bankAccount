@@ -10,3 +10,7 @@ bankrupt if your balance goes negative.
 on a daily basis. Also, as a university student budgeting is a big matter to me and that's why I implemented the
 feature where you receive notifications whenever your account balance hits a threshold.
 
+### User Stories
+
+- As a user, I want to be able to add multiple bank cards.
+
