@@ -2,6 +2,11 @@ package model;
 
 // Represents a bank card with a card number, cvv, expiry date and the owner's name
 public class BankCard {
+    private int cardNum;
+    private int cvv;
+    private int expiryDate;
+    private int balance;
+    private String name;
 
     public BankCard() {
 
