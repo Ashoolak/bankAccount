@@ -17,7 +17,12 @@ public class BankAccount {
     //          else
     //              return false
     public boolean addCard(BankCard card) {
-        return false;
+        if (bankAccount.contains(card)) {
+            return false;
+        } else {
+            bankAccount.add(card);
+            return true;
+        }
     }
 
     // Requires: The list must not be empty (there has to be at least one card)
@@ -28,7 +33,12 @@ public class BankAccount {
     //          else
     //              returns null
     public BankCard removeCard(BankCard card) {
-        return null;
+        if (bankAccount.contains(card)) {
+            bankAccount.remove(card);
+            return card;
+        } else {
+            return null;
+        }
     }
 
     // EFFECTS: returns the card with the given index
