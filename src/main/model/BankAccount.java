@@ -1,14 +1,48 @@
 package model;
 
+import java.util.ArrayList;
+
 public class BankAccount {
+    private ArrayList<BankCard> bankAccount;
 
-    public BankAccount() {}
+    // EFFECTS: Constructs an empty BankAccount object
+    public BankAccount() {
+        bankAccount = new ArrayList<BankCard>();
+    }
 
-    public void addCard() {}
+    // MODIFIES: this
+    // EFFECTS: if the card is not already in the ArrayList
+    //              add the card to the ArrayList
+    //              return true
+    //          else
+    //              return false
+    public boolean addCard(BankCard card) {
+        return false;
+    }
 
-    public void removeCard() {}
-
-    public BankCard getCard(Integer cardNum) {
+    // Requires: The list must not be empty (there has to be at least one card)
+    // MODIFIES: this
+    // EFFECTS: searches for a card in the list using its card number
+    //          if found
+    //              removes the card from the arraylist and return the bank card
+    //          else
+    //              returns null
+    public BankCard removeCard(BankCard card) {
         return null;
+    }
+
+    // EFFECTS: returns the card with the given index
+    public BankCard getCard(Integer index) {
+        return null;
+    }
+
+    // EFFECTS: returns the card with the given card number cardNum
+    public BankCard getCard(String cardNum) {
+        return null;
+    }
+
+    // EFFECTS: returns the number of the cards in the account
+    public int cardCount() {
+        return 0;
     }
 }

@@ -1,42 +1,84 @@
 package model;
 
-// Represents a bank card with a card number, cvv, expiry date and the owner's name
+// Represents a bank card with a card number, cvv, expiry date, the owner's name, and balance
 public class BankCard {
-    private int cardNum;
-    private int cvv;
-    private int expiryDate;
-    private int balance;
-    private String name;
+    private final String cardNum;
+    private final int cvv;
+    private final int expiryDate;
+    private double balance;
+    private final String name;
 
-    public BankCard() {
-
+    // EFFECTS: Creates a bank card object with a card number, cvv, expiry date
+    //          in the format of DayMonthYear(14082003 for instance) and balance
+    public BankCard(String cardNum, Integer cvv, Integer expiryDate, String name, double balance) {
+        this.cardNum = cardNum;
+        this.cvv = cvv;
+        this.expiryDate = expiryDate;
+        this.name = name;
+        this.balance = balance;
     }
 
-    public void deposit() {
-
+    // REQUIRES: amount >= 0
+    // MODIFIES: this
+    // EFFECTS: increases balance by amount
+    public void deposit(Integer amount) {
+        balance += amount;
     }
 
-    public void withdraw() {
-
+    // REQUIRES: amount >= 0
+    // MODIFIES: this
+    // EFFECTS: if amount <= balance
+    //              decreases balance by amount
+    //              return true
+    //          else
+    //              return false
+    public boolean withdraw(Integer amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void purchase() {
-
+    // REQUIRES: amount >= 0
+    // MODIFIES: this
+    // EFFECTS: if amount <= balance
+    //              decreases balance by amount
+    //              return true
+    //          else
+    //              return false
+    public boolean purchase(Integer amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    // EFFECTS: getter method for cardNum
+    public String getCardNum() {
+        return cardNum;
+    }
+
+    // EFFECTS: getter method for balance
     public double getBalance() {
-        return 0.0;
+        return balance;
     }
 
-    public String getName(int cardNum) {
-        return "";
+    // EFFECTS: getter method for name
+    public String getName() {
+        return name;
     }
 
-    public int getCVV(int cardNum) {
-        return 0;
+    // EFFECTS: getter method for cvv
+    public int getCVV() {
+        return cvv;
     }
 
-    public int getExpiryDate(int cardNum) {
-        return 0;
+    // EFFECTS: getter method for expiryDate
+    public int getExpiryDate() {
+        return expiryDate;
     }
 }

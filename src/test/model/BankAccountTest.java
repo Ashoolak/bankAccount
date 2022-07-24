@@ -1,15 +1,49 @@
 package model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class BankAccountTest {
+    private BankCard card1, card2, card3;
+    private BankAccount account1;
+
+    @BeforeEach
+    public void setup() {
+        account1 = new BankAccount();
+        card1 = new BankCard("1111333355557777", 999, 12942028, "Alec", 200.0);
+        card2 = new BankCard("5649174691847818", 182, 20112030, "Ash", 100.0);
+        card3 = new BankCard("3785401749286705", 427, 01012025, "Kaz", 0.0);
+    }
 
     @Test
-    public void bankAccountTest() {}
+    public void addCardTest() {
+        assertEquals(0, account1.cardCount());
+        account1.addCard(card1);
+        account1.addCard(card2);
+        assertEquals(2, account1.cardCount());
+        assertEquals(card1, account1.getCard(0));
+        assertEquals(card2, account1.getCard(1));
+    }
 
     @Test
-    public void addCardTest() {}
-
-    @Test
-    public void removeCardTest() {}
+    public void removeCardTest() {
+        assertEquals(0, account1.cardCount());
+        account1.addCard(card1);
+        account1.addCard(card2);
+        assertEquals(2, account1.cardCount());
+        assertEquals(card1, account1.addCard(card1));
+        assertEquals(card2, account1.addCard(card2));
+        assertEquals(card1, account1.removeCard(card1));
+        assertEquals(1, account1.cardCount());
+        assertEquals(null, account1.getCard("1111333355557777"));
+        assertEquals(null, account1.removeCard(card1));
+        assertEquals(card2, account1.removeCard(card2));
+        assertEquals(0, account1.cardCount());
+        assertEquals(null, account1.removeCard(card2));
+    }
 }
