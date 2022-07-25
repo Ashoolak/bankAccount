@@ -2,7 +2,7 @@
 
 ## Bank account
 
-**Project description**: This application is a *bank account stimulant* where you can add multiple cards, removes cards,
+**Project description**: This application is a *bank account simulation* where you can add multiple cards, removes cards,
 deposit money, withdraw money, and make purchases just like an actual banking app.
 
 **Why is it important**: This project can be used by *everyone* since everyone uses their credit and debit cards 

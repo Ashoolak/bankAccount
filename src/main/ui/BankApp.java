@@ -4,8 +4,6 @@ import model.*;
 
 import java.util.Scanner;
 
-import static javafx.application.Platform.exit;
-
 public class BankApp {
     private Scanner input;
     private String cardNum;
@@ -84,7 +82,6 @@ public class BankApp {
         } else if (menuChoice == 3) {
             cardMenu();
         } else {
-            System.out.println("Goodbye!");
             repeat = 2;
         }
 
@@ -174,7 +171,7 @@ public class BankApp {
     // EFFECTS: increases card's balance by amount
     public void deposit(BankCard card, Double amount) {
         card.deposit(amount);
-        System.out.println("Card balance: $" + account.getCard(cardNum).getBalance());
+        System.out.println("Card balance: $" + card.getBalance());
     }
 
     // MODIFIES: this
@@ -186,7 +183,7 @@ public class BankApp {
         if (!card.withdraw(amount)) {
             System.out.println("Insufficient balance");
         }
-        System.out.println("Card balance: $" + account.getCard(cardNum).getBalance());
+        System.out.println("Card balance: $" + card.getBalance());
     }
 
     // MODIFIES: this
@@ -198,7 +195,7 @@ public class BankApp {
         if (!card.purchase(amount)) {
             System.out.println("Insufficient balance");
         }
-        System.out.println("Card balance: $" + account.getCard(cardNum).getBalance());
+        System.out.println("Card balance: $" + card.getBalance());
     }
 
     // EFFECTS: prints out all the information associated with that card including cardNum, name,
@@ -209,7 +206,7 @@ public class BankApp {
         System.out.println("cvv: " + card.getCVV());
         System.out.print("Expiry date: " + String.valueOf(card.getExpiryDate()).substring(0,2));
         System.out.print("/" + String.valueOf(card.getExpiryDate()).substring(2,4));
-        System.out.print("/" + String.valueOf(card.getExpiryDate()).substring(4));
+        System.out.println("/" + String.valueOf(card.getExpiryDate()).substring(4));
         System.out.println("Balance: " + card.getBalance());
     }
 
