@@ -21,7 +21,7 @@ public class BankCard {
     // REQUIRES: amount >= 0
     // MODIFIES: this
     // EFFECTS: increases balance by amount
-    public void deposit(Integer amount) {
+    public void deposit(Double amount) {
         balance += amount;
     }
 
@@ -32,7 +32,7 @@ public class BankCard {
     //              return true
     //          else
     //              return false
-    public boolean withdraw(Integer amount) {
+    public boolean withdraw(Double amount) {
         if (amount <= balance) {
             balance -= amount;
             return true;
@@ -48,7 +48,7 @@ public class BankCard {
     //              return true
     //          else
     //              return false
-    public boolean purchase(Integer amount) {
+    public boolean purchase(Double amount) {
         if (amount <= balance) {
             balance -= amount;
             return true;

@@ -2,15 +2,19 @@
 
 ## Bank account
 
-**Project description**: This application is a *bank account stimulant* where you deposit money, withdraw money, 
-make purchases, you will even receive notifications when your balance reaches a threshold, and you can even go 
-bankrupt if your balance goes negative.
+**Project description**: This application is a *bank account stimulant* where you can add multiple cards, removes cards,
+deposit money, withdraw money, and make purchases just like an actual banking app.
 
 **Why is it important**: This project can be used by *everyone* since everyone uses their credit and debit cards 
-on a daily basis. Also, as a university student budgeting is a big matter to me and that's why I implemented the
-feature where you receive notifications whenever your account balance hits a threshold.
+on a daily basis. I also plan to work in an industry where computer science and finance are hand-to-hand, which made 
+the idea of coding a banking app appealing to me.
 
 ### User Stories
 
 - As a user, I want to be able to add multiple bank cards.
+- As a user, I want to be able to remove my old cards
+- As a user, I want to be able to deposit money into my card
+- As a user, I want to be able to withdraw money from my account
+- As a user, I want to be able to purchase things using my card
+- As a user, I want to see the information associated with my bank card such as the balance
 

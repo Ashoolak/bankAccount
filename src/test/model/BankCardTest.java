@@ -25,9 +25,9 @@ public class BankCardTest {
     @Test
     public void depositTest() {
         assertEquals(1000.0, card1.getBalance());
-        card1.deposit(100);
+        card1.deposit(100.0);
         assertEquals(1100.0, card1.getBalance());
-        card1.deposit(0);
+        card1.deposit(0.0);
         assertEquals(1100.0, card1.getBalance());
 
     }
@@ -35,19 +35,19 @@ public class BankCardTest {
     @Test
     public void withdrawTest() {
         assertEquals(1000.0, card1.getBalance());
-        assertTrue(card1.withdraw(100));
-        assertTrue(card1.withdraw(899));
-        assertTrue(card1.withdraw(1));
-        assertFalse(card1.withdraw(1));
+        assertTrue(card1.withdraw(100.0));
+        assertTrue(card1.withdraw(899.0));
+        assertTrue(card1.withdraw(1.0));
+        assertFalse(card1.withdraw(1.0));
     }
 
     @Test
     public void purchaseTest() {
         assertEquals(1000.0, card1.getBalance());
-        assertTrue(card1.purchase(100));
-        assertTrue(card1.purchase(899));
-        assertTrue(card1.purchase(1));
-        assertFalse(card1.purchase(1));
+        assertTrue(card1.purchase(100.0));
+        assertTrue(card1.purchase(899.0));
+        assertTrue(card1.purchase(1.0));
+        assertFalse(card1.purchase(1.0));
     }
 
     @Test

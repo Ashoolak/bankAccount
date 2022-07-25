@@ -46,10 +46,19 @@ public class BankAccount {
         return bankAccount.get(index);
     }
 
+    public BankCard getCard(String cardNum) {
+        for (BankCard card : bankAccount) {
+            if (card.getCardNum().equals(cardNum)) {
+                return card;
+            }
+        }
+        return null;
+    }
+
     // EFFECTS: returns and removes the card with the given card number cardNum
     public BankCard getRemovedCard(String cardNum) {
         for (BankCard card : bankAccount) {
-            if (card.getCardNum() == cardNum) {
+            if (card.getCardNum().equals(cardNum)) {
                 bankAccount.remove(card);
                 return card;
             }
