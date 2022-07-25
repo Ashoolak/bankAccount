@@ -22,8 +22,10 @@ public class BankAccountTest {
     @Test
     public void addCardTest() {
         assertEquals(0, account1.cardCount());
-        account1.addCard(card1);
-        account1.addCard(card2);
+        assertTrue(account1.addCard(card1));
+        assertTrue(account1.addCard(card2));
+        assertFalse(account1.addCard(card1));
+        assertFalse(account1.addCard(card2));
         assertEquals(2, account1.cardCount());
         assertEquals(card1, account1.getCard(0));
         assertEquals(card2, account1.getCard(1));
@@ -37,10 +39,10 @@ public class BankAccountTest {
         assertEquals(2, account1.cardCount());
         assertTrue(account1.removeCard("1111333355557777"));
         assertEquals(1, account1.cardCount());
-        assertEquals(null, account1.getRemovedCard("1111333355557777"));
+        assertEquals(null, account1.getCard("1111333355557777"));
         assertFalse(account1.removeCard("1111333355557777"));
         assertTrue(account1.removeCard("5649174691847818"));
         assertEquals(0, account1.cardCount());
-        assertEquals(null, account1.getRemovedCard("5649174691847818"));
+        assertEquals(null, account1.getCard("5649174691847818"));
     }
 }

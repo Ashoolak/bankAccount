@@ -1,6 +1,5 @@
 package ui;
 
-import com.sun.org.apache.xpath.internal.objects.XStringForChars;
 import model.*;
 
 import java.util.Scanner;
@@ -71,7 +70,7 @@ public class BankApp {
     public void menu() {
         System.out.println("Choose of the following options");
         System.out.println("===============================");
-        System.out.println("");
+        System.out.println(" ");
         System.out.println("1- Add card");
         System.out.println("2- Remove card");
         System.out.println("3- Choose a card");
@@ -86,7 +85,7 @@ public class BankApp {
             cardMenu();
         } else {
             System.out.println("Goodbye!");
-            exit();
+            repeat = 2;
         }
 
     }
@@ -124,7 +123,7 @@ public class BankApp {
         System.out.println("Enter the card number of the card that you wish to remove");
         cardNum = input.next();
 
-        if (account.removeCard(cardNum) == true) {
+        if (account.removeCard(cardNum)) {
             account.removeCard(cardNum);
             System.out.println("card with card number " + cardNum + " has been removed");
         } else {
@@ -132,14 +131,22 @@ public class BankApp {
         }
     }
 
-
+    // REQUIRES: the cardNum must be an existing cardNum in the account
+    // MODIFIES: this
+    // EFFECTS: the user enters their card number and then is given a bunch of options
+    //          if menuChoice = 1
+    //              program goes to deposit() method
+    //          if menuChoice = 1
+    //              program goes to withdraw() method
+    //          if menuChoice = 1
+    //              program goes to purchase() method
+    //          else
+    //              program goes to information() method
     public void cardMenu() {
         System.out.println("Enter the card number:");
         cardNum = input.next();
 
         System.out.println("Choose from the following options");
-        System.out.println("===============================");
-        System.out.println("");
         System.out.println("1- deposit money");
         System.out.println("2- withdraw money");
         System.out.println("3- make a purchase");
@@ -149,39 +156,61 @@ public class BankApp {
         if (menuChoice == 1) {
             System.out.println("Enter the amount:");
             amount = Double.parseDouble(input.next());
-            deposit(cardNum, amount);
+            deposit(account.getCard(cardNum), amount);
         } else if (menuChoice == 2) {
             System.out.println("Enter the amount:");
             amount = Double.parseDouble(input.next());
-            withdraw(cardNum, amount);
+            withdraw(account.getCard(cardNum), amount);
         } else if (menuChoice == 3) {
-            purchase(cardNum);
+            System.out.println("Enter the amount:");
+            amount = Double.parseDouble(input.next());
+            purchase(account.getCard(cardNum), amount);
         } else {
-            information(cardNum);
+            information(account.getCard(cardNum));
         }
     }
 
-    public void deposit(String cardNum, Double amount) {
-        account.getCard(cardNum).deposit(amount);
+    // MODIFIES: this
+    // EFFECTS: increases card's balance by amount
+    public void deposit(BankCard card, Double amount) {
+        card.deposit(amount);
         System.out.println("Card balance: $" + account.getCard(cardNum).getBalance());
     }
 
-    public void withdraw(String cardNum, Double amount) {
-        if (account.getCard(cardNum).withdraw(amount) == false) {
+    // MODIFIES: this
+    // EFFECTS: if card.withdraw(amount) is true
+    //              prints Insufficient balance because amount > balance
+    //          else
+    //              prints the new card balance after balance - amount
+    public void withdraw(BankCard card, Double amount) {
+        if (!card.withdraw(amount)) {
             System.out.println("Insufficient balance");
         }
         System.out.println("Card balance: $" + account.getCard(cardNum).getBalance());
     }
 
-    public void purchase(String cardNum) {
-        if (account.getCard(cardNum).purchase(amount) == false) {
+    // MODIFIES: this
+    // EFFECTS: if card.purchase(amount) is true
+    //              prints Insufficient balance because amount > balance
+    //          else
+    //              prints the new card balance after balance - amount
+    public void purchase(BankCard card, Double amount) {
+        if (!card.purchase(amount)) {
             System.out.println("Insufficient balance");
         }
         System.out.println("Card balance: $" + account.getCard(cardNum).getBalance());
     }
 
-    public void information(String cardNum) {
-
+    // EFFECTS: prints out all the information associated with that card including cardNum, name,
+    //          cvv, expiryDate, and balance
+    public void information(BankCard card) {
+        System.out.println("Card number: " + card.getCardNum());
+        System.out.println("Holder's name: " + card.getName());
+        System.out.println("cvv: " + card.getCVV());
+        System.out.print("Expiry date: " + String.valueOf(card.getExpiryDate()).substring(0,2));
+        System.out.print("/" + String.valueOf(card.getExpiryDate()).substring(2,4));
+        System.out.print("/" + String.valueOf(card.getExpiryDate()).substring(4));
+        System.out.println("Balance: " + card.getBalance());
     }
 
 }
