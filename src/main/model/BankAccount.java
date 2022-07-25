@@ -32,27 +32,33 @@ public class BankAccount {
     //              removes the card from the arraylist and return the bank card
     //          else
     //              returns null
-    public BankCard removeCard(BankCard card) {
-        if (bankAccount.contains(card)) {
-            bankAccount.remove(card);
-            return card;
+    public Boolean removeCard(String cardNum) {
+        if (getRemovedCard(cardNum) == null) {
+            return false;
         } else {
-            return null;
+            getRemovedCard(cardNum);
+            return true;
         }
     }
 
     // EFFECTS: returns the card with the given index
     public BankCard getCard(Integer index) {
-        return null;
+        return bankAccount.get(index);
     }
 
-    // EFFECTS: returns the card with the given card number cardNum
-    public BankCard getCard(String cardNum) {
+    // EFFECTS: returns and removes the card with the given card number cardNum
+    public BankCard getRemovedCard(String cardNum) {
+        for (BankCard card : bankAccount) {
+            if (card.getCardNum() == cardNum) {
+                bankAccount.remove(card);
+                return card;
+            }
+        }
         return null;
     }
 
     // EFFECTS: returns the number of the cards in the account
     public int cardCount() {
-        return 0;
+        return bankAccount.size();
     }
 }

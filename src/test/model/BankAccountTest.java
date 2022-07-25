@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BankAccountTest {
     private BankCard card1, card2, card3;
@@ -36,14 +35,12 @@ public class BankAccountTest {
         account1.addCard(card1);
         account1.addCard(card2);
         assertEquals(2, account1.cardCount());
-        assertEquals(card1, account1.addCard(card1));
-        assertEquals(card2, account1.addCard(card2));
-        assertEquals(card1, account1.removeCard(card1));
+        assertTrue(account1.removeCard("1111333355557777"));
         assertEquals(1, account1.cardCount());
-        assertEquals(null, account1.getCard("1111333355557777"));
-        assertEquals(null, account1.removeCard(card1));
-        assertEquals(card2, account1.removeCard(card2));
+        assertEquals(null, account1.getRemovedCard("1111333355557777"));
+        assertFalse(account1.removeCard("1111333355557777"));
+        assertTrue(account1.removeCard("5649174691847818"));
         assertEquals(0, account1.cardCount());
-        assertEquals(null, account1.removeCard(card2));
+        assertEquals(null, account1.getRemovedCard("5649174691847818"));
     }
 }
