@@ -33,10 +33,10 @@ public class BankAccount {
     //          else
     //              returns null
     public Boolean removeCard(String cardNum) {
-        if (getRemovedCard(cardNum) == null) {
+        if (getCard(cardNum) == null) {
             return false;
         } else {
-            getRemovedCard(cardNum);
+            bankAccount.remove(getCard(cardNum));
             return true;
         }
     }
@@ -46,20 +46,10 @@ public class BankAccount {
         return bankAccount.get(index);
     }
 
+    // EFFECTS: returns the card with the given card number
     public BankCard getCard(String cardNum) {
         for (BankCard card : bankAccount) {
             if (card.getCardNum().equals(cardNum)) {
-                return card;
-            }
-        }
-        return null;
-    }
-
-    // EFFECTS: returns and removes the card with the given card number cardNum
-    public BankCard getRemovedCard(String cardNum) {
-        for (BankCard card : bankAccount) {
-            if (card.getCardNum().equals(cardNum)) {
-                bankAccount.remove(card);
                 return card;
             }
         }
