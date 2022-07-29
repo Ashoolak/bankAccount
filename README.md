@@ -17,4 +17,6 @@ the idea of coding a banking app appealing to me.
 - As a user, I want to be able to withdraw money from my account
 - As a user, I want to be able to purchase things using my card
 - As a user, I want to see the information associated with my bank card such as the balance
+- As a user, I want to be able to save my bank account to file
+- As a user, I want to be able to be able to load my bank account list from file 
 
