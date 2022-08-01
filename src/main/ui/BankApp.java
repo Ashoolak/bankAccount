@@ -1,11 +1,20 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
+// Represents the bank account application
 public class BankApp {
+    private static final String JSON_STORE = "./data/bankAccount.json";
     private Scanner input;
+    private BankAccount bankAccount;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private String cardNum;
     private String name;
     private int cvv;
@@ -13,13 +22,21 @@ public class BankApp {
     private double balance;
     private double amount;
     private BankCard card;
-    private BankAccount account;
     private int repeat;
     private int menuChoice;
-    //String cardNum, Integer cvv, Integer expiryDate, String name, double balance
 
-    // EFFECTS: Runs the bank application
-    public BankApp() throws InterruptedException {
+    // EFFECTS: constructs bankAccount and runs application
+    public BankApp() throws FileNotFoundException, InterruptedException {
+        input = new Scanner(System.in);
+        bankAccount = new BankAccount();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        runBankAccount();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes user input
+    public void runBankAccount() throws InterruptedException {
         repeat = 1;
         starter();
 
@@ -38,6 +55,19 @@ public class BankApp {
         input = new Scanner(System.in);
 
         System.out.println("Welcome to myBanking");
+        System.out.println("Select one of the following");
+        System.out.println("1- add a card");
+        System.out.println("2- load account");
+        menuChoice = Integer.parseInt(input.next());
+
+        if (menuChoice == 1) {
+            addFirstCard();
+        } else {
+            loadBankAccount();
+        }
+    }
+
+    private void addFirstCard() {
         System.out.println("It's time to add your first card!");
 
         System.out.println("Enter the card number:");
@@ -56,8 +86,8 @@ public class BankApp {
         balance = Double.parseDouble(input.next());
 
         card = new BankCard(cardNum, cvv, expiryDate, name, balance);
-        account = new BankAccount();
-        account.addCard(card);
+        bankAccount = new BankAccount();
+        bankAccount.addCard(card);
 
         System.out.println("You are all set up!");
     }
@@ -72,7 +102,8 @@ public class BankApp {
         System.out.println("1- Add card");
         System.out.println("2- Remove card");
         System.out.println("3- Choose a card");
-        System.out.println("4- Quit");
+        System.out.println("4- save bank account to file");
+        System.out.println("5- Quit");
         menuChoice = Integer.parseInt(input.next());
 
         if (menuChoice == 1) {
@@ -81,6 +112,8 @@ public class BankApp {
             removeCard();
         } else if (menuChoice == 3) {
             cardMenu();
+        } else if (menuChoice == 4) {
+            saveBankAccount();
         } else {
             repeat = 2;
         }
@@ -107,7 +140,7 @@ public class BankApp {
         balance = Double.parseDouble(input.next());
 
         card = new BankCard(cardNum, cvv, expiryDate, name, balance);
-        account.addCard(card);
+        bankAccount.addCard(card);
     }
 
     // MODIFIES: this
@@ -120,8 +153,8 @@ public class BankApp {
         System.out.println("Enter the card number of the card that you wish to remove");
         cardNum = input.next();
 
-        if (account.removeCard(cardNum)) {
-            account.removeCard(cardNum);
+        if (bankAccount.removeCard(cardNum)) {
+            bankAccount.removeCard(cardNum);
             System.out.println("card with card number " + cardNum + " has been removed");
         } else {
             System.out.println("Card not found");
@@ -153,17 +186,17 @@ public class BankApp {
         if (menuChoice == 1) {
             System.out.println("Enter the amount:");
             amount = Double.parseDouble(input.next());
-            deposit(account.getCard(cardNum), amount);
+            deposit(bankAccount.getCard(cardNum), amount);
         } else if (menuChoice == 2) {
             System.out.println("Enter the amount:");
             amount = Double.parseDouble(input.next());
-            withdraw(account.getCard(cardNum), amount);
+            withdraw(bankAccount.getCard(cardNum), amount);
         } else if (menuChoice == 3) {
             System.out.println("Enter the amount:");
             amount = Double.parseDouble(input.next());
-            purchase(account.getCard(cardNum), amount);
+            purchase(bankAccount.getCard(cardNum), amount);
         } else {
-            information(account.getCard(cardNum));
+            information(bankAccount.getCard(cardNum));
         }
     }
 
@@ -210,4 +243,26 @@ public class BankApp {
         System.out.println("Balance: " + card.getBalance());
     }
 
+    // EFFECTS: saves the bankAccount to file
+    private void saveBankAccount() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(bankAccount);
+            jsonWriter.close();
+            System.out.println("Saved your account to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads bankAccount from file
+    private void loadBankAccount() {
+        try {
+            bankAccount = jsonReader.read();
+            System.out.println("Loaded you account from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
 }

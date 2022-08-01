@@ -1,0 +1,18 @@
+{
+  "bankCards": [
+    {
+      "cardNum": "7755",
+      "cvv": 123,
+      "expiryDate": 11223333,
+      "name": "Ash",
+      "balance": 100.0
+    },
+    {
+      "cardNum": "1234",
+      "cvv": 321,
+      "expiryDate": 14082002,
+      "name": "Kaz",
+      "balance": 50.0
+    }
+  ]
+}

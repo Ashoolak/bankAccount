@@ -1,12 +1,16 @@
 package model;
 
+import jdk.nashorn.internal.runtime.regexp.joni.WarnCallback;
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a bank card with a card number, cvv, expiry date, the owner's name, and balance
-public class BankCard {
+public class BankCard implements Writable {
     private final String cardNum;
     private final int cvv;
     private final int expiryDate;
-    private double balance;
     private final String name;
+    private double balance;
 
     // EFFECTS: Creates a bank card object with a card number, cvv, expiry date
     //          in the format of DayMonthYear(14082003 for instance) and balance
@@ -80,5 +84,17 @@ public class BankCard {
     // EFFECTS: getter method for expiryDate
     public int getExpiryDate() {
         return expiryDate;
+    }
+
+    // Used code from the provided example
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("cardNum", cardNum);
+        json.put("cvv", cvv);
+        json.put("expiryDate", expiryDate);
+        json.put("balance", balance);
+        json.put("name", name);
+        return json;
     }
 }

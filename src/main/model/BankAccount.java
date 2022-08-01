@@ -1,13 +1,18 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
+import javax.smartcardio.Card;
 import java.util.ArrayList;
 
-public class BankAccount {
-    private ArrayList<BankCard> bankAccount;
+public class BankAccount implements Writable {
+    private ArrayList<BankCard> bankCards;
 
     // EFFECTS: Constructs an empty BankAccount object
     public BankAccount() {
-        bankAccount = new ArrayList<BankCard>();
+        bankCards = new ArrayList<BankCard>();
     }
 
     // MODIFIES: this
@@ -17,10 +22,10 @@ public class BankAccount {
     //          else
     //              return false
     public boolean addCard(BankCard card) {
-        if (bankAccount.contains(card)) {
+        if (bankCards.contains(card)) {
             return false;
         } else {
-            bankAccount.add(card);
+            bankCards.add(card);
             return true;
         }
     }
@@ -36,19 +41,19 @@ public class BankAccount {
         if (getCard(cardNum) == null) {
             return false;
         } else {
-            bankAccount.remove(getCard(cardNum));
+            bankCards.remove(getCard(cardNum));
             return true;
         }
     }
 
     // EFFECTS: returns the card with the given index
     public BankCard getCard(Integer index) {
-        return bankAccount.get(index);
+        return bankCards.get(index);
     }
 
     // EFFECTS: returns the card with the given card number
     public BankCard getCard(String cardNum) {
-        for (BankCard card : bankAccount) {
+        for (BankCard card : bankCards) {
             if (card.getCardNum().equals(cardNum)) {
                 return card;
             }
@@ -58,6 +63,31 @@ public class BankAccount {
 
     // EFFECTS: returns the number of the cards in the account
     public int cardCount() {
-        return bankAccount.size();
+        return bankCards.size();
+    }
+
+    // Used code from the provided example
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("bankCards", bankAccountToJson());
+        return json;
+    }
+
+    // Used code from the provided example
+    // EFFECTS: returns things in this account as a JSON array
+    private JSONArray bankAccountToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (BankCard t : bankCards) {
+            jsonArray.put(t.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECTS: getter gor bank cards
+    public ArrayList<BankCard> getBankCards() {
+        return bankCards;
     }
 }
