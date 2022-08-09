@@ -1,16 +1,7 @@
-{"bankCards": [
-    {
-        "expiryDate": 11111111,
-        "cardNum": "1",
-        "cvv": 111,
-        "balance": 100,
-        "name": "ash"
-    },
-    {
-        "expiryDate": 22222222,
-        "cardNum": "2",
-        "cvv": 222,
-        "balance": 200,
-        "name": "kaz"
-    }
-]}
+{"bankCards": [{
+    "expiryDate": 1,
+    "cardNum": "1",
+    "cvv": 1,
+    "balance": 1,
+    "name": "1"
+}]}
