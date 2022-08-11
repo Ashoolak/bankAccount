@@ -1,9 +1,10 @@
 package ui;
 
-import javax.swing.*;
+import model.EventLog;
+
 import java.io.FileNotFoundException;
 
-public class Main extends JFrame {
+public class Main {
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
         try {
             new BankApp();

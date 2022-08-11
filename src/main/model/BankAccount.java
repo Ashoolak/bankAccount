@@ -4,17 +4,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
-import javax.smartcardio.Card;
 import java.util.ArrayList;
 
 public class BankAccount implements Writable {
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 600;
     private ArrayList<BankCard> bankCards;
 
     // EFFECTS: Constructs an empty BankAccount object
     public BankAccount() {
-        bankCards = new ArrayList<BankCard>();
+        bankCards = new ArrayList<>();
     }
 
     // MODIFIES: this
@@ -24,10 +21,13 @@ public class BankAccount implements Writable {
     //          else
     //              return false
     public boolean addCard(BankCard card) {
-        if (bankCards.contains(card)) {
+        if (bankCards.contains(card.getCardNum())) {
+            EventLog.getInstance().logEvent(new Event("Card adding attempt failed"));
             return false;
         } else {
             bankCards.add(card);
+            EventLog.getInstance().logEvent(
+                    new Event("Card " + card.getCardNum() + " was added to the account"));
             return true;
         }
     }
@@ -41,9 +41,12 @@ public class BankAccount implements Writable {
     //              returns null
     public Boolean removeCard(String cardNum) {
         if (getCard(cardNum) == null) {
+            EventLog.getInstance().logEvent(new Event("Card removing attempt failed"));
             return false;
         } else {
             bankCards.remove(getCard(cardNum));
+            EventLog.getInstance().logEvent(
+                    new Event("Card " + cardNum + " was removed from account"));
             return true;
         }
     }
@@ -92,4 +95,5 @@ public class BankAccount implements Writable {
     public ArrayList<BankCard> getBankCards() {
         return bankCards;
     }
+
 }

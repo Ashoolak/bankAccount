@@ -1,6 +1,7 @@
 package ui;
 
 import model.*;
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -82,6 +83,9 @@ public class BankApp extends JFrame implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("GoodBye!");
+            for (Event event : EventLog.getInstance()) {
+                System.out.println(event);
+            }
         }
     };
 
@@ -206,104 +210,41 @@ public class BankApp extends JFrame implements ActionListener {
     // EFFECTS: processes user input
     public void runBankAccount() throws InterruptedException {
         repeat = 1;
-        starter();
-
         Thread.sleep(1000);
-
         menu();
-
         pack();
         setLocationRelativeTo(null);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: Prompts the user to enter their first card
-    public void starter() {
-        input = new Scanner(System.in);
-        System.out.println("Welcome to myBanking");
-        addFirstCard();
-    }
-
-    // MODIFIES: this
-    // EFFECTS: the user add their first bank card to the bank account
-    private void addFirstCard() {
-        System.out.println("It's time to add your first card!");
-
-        System.out.println("Enter the card number:");
-        cardNum = input.next();
-
-        System.out.println("Enter the card holder's name:");
-        name = input.next();
-
-        System.out.println("Enter the CVV:");
-        cvv = Integer.parseInt(input.next());
-
-        System.out.println("Enter the expiry date in DDMMYYYY format:");
-        expiryDate = Integer.parseInt(input.next());
-
-        System.out.println("Enter the balance that you wish to add to your card:");
-        balance = Double.parseDouble(input.next());
-
-        card = new BankCard(cardNum, cvv, expiryDate, name, balance);
-        bankAccount = new BankAccount();
-        bankAccount.addCard(card);
-
-        System.out.println("You are all set up!");
-        textArea.setText(allCardNums());
     }
 
     // MODIFIES: this
     // EFFECTS: menu of the functions that the user can choose from including adding a new card,
     //          removing an existing card, or choosing a card for card-specific functionalities
     public void menu() {
+        System.out.println("*** Welcome to your banking ***");
         System.out.println("Choose an option from the pop-up menu");
         setupGui();
-
-//        System.out.println("Choose of the following options");
-//        System.out.println("===============================");
-//        System.out.println(" ");
-//        System.out.println("1- Add card");
-//        System.out.println("2- Remove card");
-//        System.out.println("3- Choose a card");
-//        System.out.println("4- save bank account to file");
-//        System.out.println("5- Quit");
-//        menuChoice = Integer.parseInt(input.next());
-//
-//        if (menuChoice == 1) {
-//            addCard();
-//        } else if (menuChoice == 2) {
-//            removeCard();
-//        } else if (menuChoice == 3) {
-//            cardMenu();
-//        } else if (menuChoice == 4) {
-//            saveBankAccount();
-//        } else {
-//            repeat = 2;
-//        }
-
     }
 
     // MODIFIES: this
     // EFFECTS: prompts the user to enter their new card's information and creates a card with that
     // information and adds to their account.
     public void addCard() {
-        System.out.println("Enter the card number:");
-        cardNum = input.next();
+        cardNum = JOptionPane.showInputDialog("Enter the card number: ");
 
-        System.out.println("Enter the card holder's name:");
-        name = input.next();
+        name = JOptionPane.showInputDialog("Enter the card holder's name:");
 
-        System.out.println("Enter the CVV:");
-        cvv = Integer.parseInt(input.next());
+        cvv = Integer.parseInt(JOptionPane.showInputDialog("Enter the CVV: "));
 
-        System.out.println("Enter the expiry date in DDMMYYYY format:");
-        expiryDate = Integer.parseInt(input.next());
+        expiryDate = Integer.parseInt(JOptionPane.showInputDialog("Enter the expiry date in DDMMYYYY: "));
 
-        System.out.println("Enter the balance that you wish to add to your card:");
-        balance = Double.parseDouble(input.next());
+        balance = Integer.parseInt(JOptionPane.showInputDialog("Enter the balance that you wish to add: "));
 
         card = new BankCard(cardNum, cvv, expiryDate, name, balance);
         bankAccount.addCard(card);
+
+        JOptionPane.showMessageDialog(null,
+                "card with card number " + cardNum + " has been added",
+                "successful", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // MODIFIES: this
@@ -313,14 +254,26 @@ public class BankApp extends JFrame implements ActionListener {
     //          else
     //              displays "Card not found"
     public void removeCard() {
-        System.out.println("Enter the card number of the card that you wish to remove");
-        cardNum = input.next();
+//        System.out.println("Enter the card number of the card that you wish to remove");
+//        cardNum = input.next();
+//
+//        if (bankAccount.removeCard(cardNum)) {
+//            bankAccount.removeCard(cardNum);
+//            System.out.println("card with card number " + cardNum + " has been removed");
+//        } else {
+//            System.out.println("Card not found");
+//        }
+
+        cardNum = JOptionPane.showInputDialog("Enter the card number of the card that you wish to remove: ");
 
         if (bankAccount.removeCard(cardNum)) {
-            bankAccount.removeCard(cardNum);
-            System.out.println("card with card number " + cardNum + " has been removed");
+            JOptionPane.showMessageDialog(null,
+                    "card with card number " + cardNum + " has been removed",
+                    "successful", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            System.out.println("Card not found");
+            JOptionPane.showMessageDialog(null,
+                    "card not found",
+                    "failed", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

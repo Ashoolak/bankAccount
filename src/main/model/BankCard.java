@@ -1,6 +1,5 @@
 package model;
 
-import jdk.nashorn.internal.runtime.regexp.joni.WarnCallback;
 import org.json.JSONObject;
 import persistence.Writable;
 

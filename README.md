@@ -20,3 +20,16 @@ the idea of coding a banking app appealing to me.
 - As a user, I want to be able to save my bank account to file
 - As a user, I want to be able to be able to load my bank account list from file 
 
+### Phase 4: Task 2
+
+Thu Aug 11 11:12:30 PDT 2022
+
+Card 1 was added to the account
+
+Thu Aug 11 11:12:32 PDT 2022
+
+Card removing attempt failed
+
+Thu Aug 11 11:12:35 PDT 2022
+
+Card 1 was removed from account
