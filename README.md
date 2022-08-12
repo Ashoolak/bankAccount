@@ -22,14 +22,14 @@ the idea of coding a banking app appealing to me.
 
 ### Phase 4: Task 2
 
-Thu Aug 11 11:12:30 PDT 2022
-
-Card 1 was added to the account
-
-Thu Aug 11 11:12:32 PDT 2022
-
-Card removing attempt failed
-
-Thu Aug 11 11:12:35 PDT 2022
-
+Thu Aug 11 11:12:30 PDT 2022  
+Card 1 was added to the account  
+Thu Aug 11 11:12:32 PDT 2022  
+Card removing attempt failed  
+Thu Aug 11 11:12:35 PDT 2022  
 Card 1 was removed from account
+
+### Phase 4: Task 3
+- Card.purchase and Card.withdraw have the exact same implementation which means I could have factored that out.
+- I could have made a separate class for my GUI rather than putting all of the code in my BankApp class which could
+improve the readability of my code

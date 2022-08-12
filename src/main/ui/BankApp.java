@@ -254,15 +254,6 @@ public class BankApp extends JFrame implements ActionListener {
     //          else
     //              displays "Card not found"
     public void removeCard() {
-//        System.out.println("Enter the card number of the card that you wish to remove");
-//        cardNum = input.next();
-//
-//        if (bankAccount.removeCard(cardNum)) {
-//            bankAccount.removeCard(cardNum);
-//            System.out.println("card with card number " + cardNum + " has been removed");
-//        } else {
-//            System.out.println("Card not found");
-//        }
 
         cardNum = JOptionPane.showInputDialog("Enter the card number of the card that you wish to remove: ");
 
